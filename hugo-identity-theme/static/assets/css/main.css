@@ -112,7 +112,8 @@ h5, li {
   font-size: 0.85em; }
 
 h6, .biography {
-  font-size: 0.7em; }
+  font-size: 0.7em;
+   }
 
 @media screen and (max-width: 480px) {
   h1 {

@@ -44,14 +44,13 @@ disableKinds = ["page", "section", "taxonomy", "taxonomyTerm", "RSS", "sitemap",
     name = "Jolena Zabel"
     # Avatars can be written to images/avatars/
     avatar = "jolena.png"
-    position = "Student at UVA Law"
+    position = "Student at [UVA Law](https://www.law.virginia.edu/)"
     scope = [
-        "UX for [member dashboard](#)",
-        "Maintainer for [awesome-project](#)",
-        "Open Source [community management](#)"
+        "[VIGIL](#https://www.vjil.org/)",
+        "[WORK](#)",
+        "[RESEARCH](#)"
       ]
-    biography = """Jane Powers is plain awesome. He worked at Corp A and B and is open for new work.  
-Even new lines and other markdown styles are working within the bio."""
+    biography = """Jane Powers is plain awesome. He worked at Corp A and B and is open for new work. Even new lines and other markdown styles are working within the bio."""
 
   # Contact form settings
 
@@ -77,7 +76,7 @@ Even new lines and other markdown styles are working within the bio."""
 
     #postURL = "https://example.com/mailout/"
 
-    enable = true
+    enable = false
     title = "Contact Me!"
     namePlaceholder = "Name"
     emailPlaceholder = "Email"
@@ -116,9 +115,9 @@ Even new lines and other markdown styles are working within the bio."""
     target = "_blank"
 
   [[params.social]]
-    title = "Facebook"
-    icon = "fa-facebook"
-    link = "#"
+    title = "Resume"
+    icon = "fa-download"
+    link = "/resume.pdf"
     target = "_blank"
 
   # Footer settings
