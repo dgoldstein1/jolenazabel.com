@@ -15,3 +15,17 @@ export $(cat VERSION | grep VERSION)
 docker build . -t dgoldstein1/jolenazabel:$VERSION
 ```
 
+## Deploy to Heroku
+
+```bash
+export $(cat VERSION | grep VERSION)
+docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+
+docker tag \
+ 	dgoldstein1/jolenazabel:$VERSION \
+ 	registry.heroku.com/jolenazabel/web
+
+docker push registry.heroku.com/jolenazabel/web
+
+heroku container:release web --app jolenazabel
+```
