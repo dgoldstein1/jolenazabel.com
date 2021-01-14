@@ -29,3 +29,16 @@ docker push registry.heroku.com/jolenazabel/web
 
 heroku container:release web --app jolenazabel
 ```
+
+## Deploy Visit Server Backend
+```bash
+docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+
+docker tag \
+ 	dgoldstein1/websiteanalyitcs-backend:0.1.1 \
+ 	registry.heroku.com/jolenazabel-visitserver/web
+
+docker push registry.heroku.com/jolenazabel-visitserver/web
+
+heroku container:release web --app jolenazabel-visitserver
+```

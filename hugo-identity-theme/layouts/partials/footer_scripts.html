@@ -7,9 +7,64 @@
   }
 </script>
 
+<script src="/assets/js/jquery-v3.3.1/jquery.min.js"></script>
+
+<script>
+
+  /**
+   * formats data
+   *   from: https://geo.ipify.org/docs
+   *   into: https://github.com/dgoldstein1/websiteanalytics-backend#visits-1
+   **/
+  function _formatDataToAnalyticsBackend(ipifyResponse) {
+    let d = {
+      ip: ipifyResponse.ip,
+      city: ipifyResponse.location.city,
+      country_code: ipifyResponse.location.country,
+      latitude: ipifyResponse.location.lat,
+      longitude: ipifyResponse.location.lng,
+      region_code: ipifyResponse.location.region,
+      time_zone: "ipify" + ipifyResponse.location.timezone,
+      zip_code: ipifyResponse.location.postalCode,
+    };
+     // add in referrer code
+     d.href = new URLSearchParams(window.location.search).get("href");
+     return d;
+  }
+  // send out requests
+  let geoIpServer="/services/geoIpServer"
+  let metricsServer="/services/metrics"
+
+  console.log("sending site visit to backend...")
+
+  // get current ip
+  $.getJSON("/myip", function(ipResponse){
+    console.log("current ip Response", ipResponse)
+    if (ipResponse && ipResponse.ip) {
+      // add in href
+      ipResponse.href = window.location.search.substr(1)
+      // formulate request to metrics server
+
+      let ip = ipResponse.ip.split(":")[0];
+      let geoUrl = encodeURI(
+        `${geoIpServer}/v1?apiKey=at_Mb3nWUvk1iAL4W97H5Fs1LxAXjRCn&ipAddress=${ip}`
+      );
+      // reference ip with geo info
+      $.getJSON(geoUrl, function(response) {
+        console.log("response from geoUrl: ", _formatDataToAnalyticsBackend(response))
+        // post geo info to backend
+        $.post(`${metricsServer}/visits`, JSON.stringify(response), function(res) {
+          console.log("response from db",res)
+        })        
+      })
+
+    }
+  });    
+</script>
+
+
 {{ if .Site.Params.contact.enable }}
   {{ "<!-- Form Validation -->" | safeHTML }}
-  <script src="{{ "assets/js/jquery-v3.3.1/jquery.min.js" | absURL }}"></script>
   <script src="{{ "assets/js/bootstrap-v3.3.7/bootstrap.min.js" | absURL }}" async defer></script>
   <script src="{{ "assets/js/jquery.form-validator-v2.3.44/jquery.form-validator.min.js" | absURL }}" async defer></script>
   <script src="{{ "assets/js/contact.js" | absURL }}" async defer></script>
